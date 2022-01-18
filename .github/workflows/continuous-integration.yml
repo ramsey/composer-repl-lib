@@ -134,7 +134,6 @@ jobs:
           - "8.0"
           - "8.1"
         operating-system:
-          - "macos-latest"
           - "ubuntu-latest"
           - "windows-latest"
         dependencies:
