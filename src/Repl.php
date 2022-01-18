@@ -30,6 +30,8 @@ use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Repl\Psy\ElephpantCommand;
 use Ramsey\Dev\Repl\Psy\PhpunitRunCommand;
 use Ramsey\Dev\Repl\Psy\PhpunitTestCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 use function getenv;
 use function sprintf;
@@ -59,7 +61,7 @@ class Repl
         $this->isInteractive = $isInteractive;
     }
 
-    public function run(): int
+    public function run(?InputInterface $input = null, ?OutputInterface $output = null): int
     {
         $shell = new Shell($this->getPsyConfig());
         $shell->setScopeVariables($this->getScopeVariables());
@@ -71,7 +73,7 @@ class Repl
         ));
         $shell->add(new ElephpantCommand());
 
-        return $shell->run();
+        return $shell->run($input, $output);
     }
 
     private function getPsyConfig(): Configuration
@@ -104,7 +106,7 @@ class Repl
         $forPackage = '';
 
         if ($packageName !== '__root__') {
-            $forPackage = " for {$packageName}";
+            $forPackage = " for $packageName";
         }
 
         return sprintf($startupMessage, $forPackage);
