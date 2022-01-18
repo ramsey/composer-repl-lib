@@ -26,9 +26,10 @@ use Composer\Command\BaseCommand;
 use Composer\Composer;
 use Composer\Config;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
-use Ramsey\Dev\Repl\Repl;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use const DIRECTORY_SEPARATOR;
 
 /**
  * Composer command to launch a PsySH REPL
@@ -45,7 +46,7 @@ class ReplCommand extends BaseCommand
         Composer $composer,
         bool $isInteractive = true
     ) {
-        parent::__construct(null);
+        parent::__construct();
 
         $this->repositoryRoot = $repositoryRoot;
         $this->processFactory = $processFactory;
@@ -64,25 +65,22 @@ class ReplCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Config::disableProcessTimeout();
-        $this->loadEnvironment();
 
         /** @var Composer $composer */
         $composer = $this->getComposer(true);
 
-        $repl = new Repl($this->repositoryRoot, $this->processFactory, $composer, $this->isInteractive);
+        /** @var string $binDir */
+        $binDir = $composer->getConfig()->get('bin-dir');
+        $replCommand = $binDir . DIRECTORY_SEPARATOR . 'repl';
 
-        return $repl->run();
-    }
+        $process = $this->processFactory->factory([$replCommand], $this->repositoryRoot);
+        $process->setTimeout(null);
+        $process->setIdleTimeout(null);
 
-    private function loadEnvironment(): void
-    {
-        /** @var Composer $composer */
-        $composer = $this->getComposer(true);
+        if (DIRECTORY_SEPARATOR !== '\\' && $this->isInteractive) {
+            $process->setTty(true); // @codeCoverageIgnore
+        }
 
-        /** @var string $vendorDir */
-        $vendorDir = $composer->getConfig()->get('vendor-dir');
-
-        /** @psalm-suppress UnresolvableInclude */
-        require $vendorDir . '/autoload.php';
+        return $process->run();
     }
 }
