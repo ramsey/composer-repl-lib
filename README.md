@@ -1,23 +1,30 @@
-<h1 align="center">ramsey/composer-repl</h1>
+<h1 align="center">ramsey/composer-repl-lib</h1>
 
 <p align="center">
-    <strong>A REPL for PHP built into Composer.</strong>
+    <strong>The library behind the <a href="https://github.com/ramsey/composer-repl">ramsey/composer-repl</a> Composer plugin.</strong>
 </p>
 
 <p align="center">
-    <a href="https://github.com/ramsey/composer-repl"><img src="http://img.shields.io/badge/source-ramsey/composer--repl-blue.svg?style=flat-square" alt="Source Code"></a>
-    <a href="https://packagist.org/packages/ramsey/composer-repl"><img src="https://img.shields.io/packagist/v/ramsey/composer-repl.svg?style=flat-square&label=release" alt="Download Package"></a>
-    <a href="https://php.net"><img src="https://img.shields.io/packagist/php-v/ramsey/composer-repl.svg?style=flat-square&colorB=%238892BF" alt="PHP Programming Language"></a>
-    <a href="https://github.com/ramsey/composer-repl/blob/main/LICENSE"><img src="https://img.shields.io/packagist/l/ramsey/composer-repl.svg?style=flat-square&colorB=darkcyan" alt="Read License"></a>
-    <a href="https://github.com/ramsey/composer-repl/actions/workflows/continuous-integration.yml"><img src="https://img.shields.io/github/workflow/status/ramsey/composer-repl/build/main?style=flat-square&logo=github" alt="Build Status"></a>
-    <a href="https://codecov.io/gh/ramsey/composer-repl"><img src="https://img.shields.io/codecov/c/gh/ramsey/composer-repl?label=codecov&logo=codecov&style=flat-square" alt="Codecov Code Coverage"></a>
-    <a href="https://shepherd.dev/github/ramsey/composer-repl"><img src="https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fshepherd.dev%2Fgithub%2Framsey%2Fcomposer-repl%2Fcoverage" alt="Psalm Type Coverage"></a>
+    <a href="https://github.com/ramsey/composer-repl-lib"><img src="http://img.shields.io/badge/source-ramsey/composer--repl--lib-blue.svg?style=flat-square" alt="Source Code"></a>
+    <a href="https://packagist.org/packages/ramsey/composer-repl-lib"><img src="https://img.shields.io/packagist/v/ramsey/composer-repl-lib.svg?style=flat-square&label=release" alt="Download Package"></a>
+    <a href="https://php.net"><img src="https://img.shields.io/packagist/php-v/ramsey/composer-repl-lib.svg?style=flat-square&colorB=%238892BF" alt="PHP Programming Language"></a>
+    <a href="https://github.com/ramsey/composer-repl-lib/blob/main/LICENSE"><img src="https://img.shields.io/packagist/l/ramsey/composer-repl-lib.svg?style=flat-square&colorB=darkcyan" alt="Read License"></a>
+    <a href="https://github.com/ramsey/composer-repl-lib/actions/workflows/continuous-integration.yml"><img src="https://img.shields.io/github/workflow/status/ramsey/composer-repl-lib/build/main?style=flat-square&logo=github" alt="Build Status"></a>
+    <a href="https://codecov.io/gh/ramsey/composer-repl-lib"><img src="https://img.shields.io/codecov/c/gh/ramsey/composer-repl-lib?label=codecov&logo=codecov&style=flat-square" alt="Codecov Code Coverage"></a>
+    <a href="https://shepherd.dev/github/ramsey/composer-repl-lib"><img src="https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fshepherd.dev%2Fgithub%2Framsey%2Fcomposer-repl-lib%2Fcoverage" alt="Psalm Type Coverage"></a>
 </p>
 
 ## About
 
-This [Composer](https://getcomposer.org) plugin provides the `composer repl`
-command.
+This is the library that powers the [ramsey/composer-repl](https://github.com/ramsey/composer-repl)
+[Composer](https://getcomposer.org/) plugin. Since you can't extend Composer
+plugins, this exists to allow for extension. This library also allows for
+non-plugin use of the `repl` CLI tool, which you may use even if you do not wish
+to use the plugin functionality.
+
+> 💡 If you don't need to extend this for your own plugin needs, and you want the
+> functionality provided by the plugin, check out
+> [ramsey/composer-repl](https://github.com/ramsey/composer-repl) instead.
 
 REPL stands for *read-eval-print loop*. It's a language shell that reads user
 input, evaluates the input using a programming language (in this case, PHP), and
@@ -25,14 +32,15 @@ prints the output to the screen. Then, it returns to the read state (that's the
 *loop* part).
 
 [PsySH](https://psysh.org) is the REPL providing the magic behind
-ramsey/composer-repl. PsySH is a language shell for PHP. It's similar to
-[irb](https://github.com/ruby/irb) for Ruby, [IPython](https://ipython.org) for
-Python, and [JShell](https://docs.oracle.com/javase/9/tools/jshell.htm) for
-Java. In addition to acting as a language shell, PsySH can also function as an
-interactive debugger and development console.
-[Laravel Tinker](https://github.com/laravel/tinker), [Drush](https://www.drush.org)
-for Drupal, [WP-CLI shell](https://github.com/wp-cli/shell-command)
-for WordPress, [CakePHP console](https://book.cakephp.org/3/en/console-and-shells/repl.html),
+ramsey/composer-repl and ramsey/composer-repl-lib. PsySH is a language shell for
+PHP. It's similar to [irb](https://github.com/ruby/irb) for Ruby,
+[IPython](https://ipython.org) for Python, and
+[JShell](https://docs.oracle.com/javase/9/tools/jshell.htm) for Java. In addition
+to acting as a language shell, PsySH can also function as an interactive debugger
+and development console. [Laravel Tinker](https://github.com/laravel/tinker),
+[Drush](https://www.drush.org) for Drupal,
+[WP-CLI shell](https://github.com/wp-cli/shell-command) for WordPress,
+[CakePHP console](https://book.cakephp.org/3/en/console-and-shells/repl.html),
 and [Yii shell](https://github.com/yiisoft/yii2-shell) are a few of the projects
 using PsySH.
 
@@ -46,18 +54,17 @@ Install this package as a development dependency using
 [Composer](https://getcomposer.org).
 
 ``` bash
-composer require --dev ramsey/composer-repl
+composer require --dev ramsey/composer-repl-lib
 ```
 
 ## Usage
 
-Open your terminal and type `composer repl`. You may also type `composer shell`,
-if you prefer.
+Open your terminal and type `./vendor/bin/repl`.
 
 You'll see something similar to this:
 
 ```
-Psy Shell v0.10.8 (PHP 8.0.9 — cli) by Justin Hileman
+Psy Shell v0.11.1 (PHP 8.1.1 — cli) by Justin Hileman
 ------------------------------------------------------------------------
 Welcome to the development console (REPL).
 To learn more about what you can do in PsySH, type `help`.
@@ -95,9 +102,9 @@ Test passed!
 
 >>> phpunit
 
-PHPUnit 9.3.7 by Sebastian Bergmann and contributors.
+PHPUnit 9.5.11 by Sebastian Bergmann and contributors.
 
-Runtime:       PHP 7.4.9
+Runtime:       PHP 8.1.1
 Configuration: /path/to/ramsey/conventional-commits/phpunit.xml.dist
 
 ...............................................................  63 / 221 ( 28%)
@@ -110,7 +117,7 @@ Time: 00:00.064, Memory: 12.00 MB
 OK (221 tests, 484 assertions)
 ```
 
-This implementation of PsySH has Super ElePHPant Powers.
+✨🐘 This implementation of PsySH has Super ElePHPant Powers. 🐘✨
 
 ## Environment Bootstrapping
 
@@ -181,6 +188,6 @@ security issue in software that is maintained in this repository, please read
 
 ## Copyright and License
 
-The ramsey/composer-repl library is copyright © [Ben Ramsey](https://benramsey.com)
+The ramsey/composer-repl-lib library is copyright © [Ben Ramsey](https://benramsey.com)
 and licensed for use under the terms of the
 MIT License (MIT). Please see [LICENSE](LICENSE) for more information.

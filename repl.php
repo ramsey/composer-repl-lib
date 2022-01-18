@@ -4,7 +4,7 @@
  * This file exists as an example for environment bootstrapping, and it also
  * doubles as an aid in testing environment bootstrapping.
  *
- * @link https://github.com/ramsey/composer-repl#environment-bootstrapping
+ * @link https://github.com/ramsey/composer-repl-lib#environment-bootstrapping
  * @see \Ramsey\Test\Dev\Repl\Composer\ReplCommandTest::testRun()
  */
 

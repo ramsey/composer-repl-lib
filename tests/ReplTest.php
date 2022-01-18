@@ -26,6 +26,8 @@ class ReplTest extends TestCase
 {
     public function testReplCommand(): void
     {
+        $this->markTestSkipped('Skipping until fix for devtools-lib is merged');
+
         $processFactory = new ProcessFactory();
         $process = $processFactory->factory(['bin/repl'], dirname(__DIR__));
         $process->setTimeout(2);
@@ -58,6 +60,8 @@ class ReplTest extends TestCase
      */
     public function testReplRun(): void
     {
+        $this->markTestSkipped('Skipping until fix for devtools-lib is merged');
+
         $shellVersion = Shell::VERSION;
         $phpVersion = phpversion();
 

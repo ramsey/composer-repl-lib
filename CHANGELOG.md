@@ -1,4 +1,4 @@
-# ramsey/composer-repl Changelog
+# ramsey/composer-repl-lib Changelog
 
 All notable changes to this project will be documented in this file.
 

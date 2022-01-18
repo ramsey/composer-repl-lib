@@ -1,8 +1,8 @@
 {
-    "name": "ramsey/composer-repl",
-    "description": "A REPL for PHP built into Composer.",
+    "name": "ramsey/composer-repl-lib",
+    "description": "The library behind ramsey/composer-repl, allowing for extension of the ramsey/composer-repl Composer plugin and non-plugin use of the repl command.",
     "license": "MIT",
-    "type": "composer-plugin",
+    "type": "library",
     "keywords": [
         "repl",
         "psysh",
@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^7.4 || ^8",
-        "composer-plugin-api": "^1.1 || ^2",
         "phpunit/phpunit": "^6 || ^7 || ^8 || ^9",
         "psy/psysh": "^0.11.0",
         "symfony/console": "^4.4.30 || ^5.3.7 || ^6",
@@ -49,7 +48,8 @@
             "ergebnis/composer-normalize": true,
             "captainhook/plugin-composer": true,
             "ramsey/devtools": true,
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "ramsey/composer-repl": false
         },
         "sort-packages": true
     },
@@ -60,7 +60,6 @@
         "captainhook": {
             "force-install": true
         },
-        "class": "Ramsey\\Dev\\Repl\\Composer\\ReplPlugin",
         "ramsey/composer-repl": {
             "includes": [
                 "repl.php"
