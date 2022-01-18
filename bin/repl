@@ -61,7 +61,7 @@ use Symfony\Component\Console\Input\StringInput;
     $helperSet = new HelperSet();
     $io = new ConsoleIO($input, $output, $helperSet);
 
-    $composerFile = (string) Factory::getComposerFile();
+    $composerFile = Factory::getComposerFile();
     $composer = Factory::create($io, $composerFile);
 
     $repositoryRoot = (string) realpath(dirname($composerFile));

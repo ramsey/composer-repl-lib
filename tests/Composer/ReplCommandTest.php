@@ -8,7 +8,6 @@ use Composer\Composer;
 use Composer\Config;
 use Composer\EventDispatcher\EventDispatcher;
 use Composer\Package\RootPackageInterface;
-use Mockery\MockInterface;
 use Ramsey\Dev\Repl\Composer\ReplCommand;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Tools\TestCase;
@@ -22,10 +21,9 @@ class ReplCommandTest extends TestCase
 {
     public function testRun(): void
     {
-        /** @var EventDispatcher & MockInterface $dispatcher */
-        $dispatcher = $this->mockery(EventDispatcher::class)->shouldIgnoreMissing();
+        $dispatcher = $this->mockery(EventDispatcher::class);
+        $dispatcher->shouldIgnoreMissing();
 
-        /** @var RootPackageInterface & MockInterface $package */
         $package = $this->mockery(RootPackageInterface::class, [
             'getPrettyName' => 'foo/bar',
             'getFullPrettyVersion' => 'dev-test',
@@ -50,10 +48,9 @@ class ReplCommandTest extends TestCase
         $composer->setConfig($config);
         $composer->setPackage($package);
 
-        /** @var InputInterface & MockInterface $input */
-        $input = $this->mockery(InputInterface::class)->shouldIgnoreMissing();
+        $input = $this->mockery(InputInterface::class);
+        $input->shouldIgnoreMissing();
 
-        /** @var OutputInterface & MockInterface $output */
         $output = $this->mockery(OutputInterface::class);
 
         $command = new ReplCommand(

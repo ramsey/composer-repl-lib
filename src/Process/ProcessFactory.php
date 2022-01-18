@@ -34,13 +34,10 @@ class ProcessFactory
     /**
      * @param string[] $command
      *
-     * @return Process<string, string>
-     *
      * @throws ReflectionException
      */
     public function factory(array $command, ?string $cwd = null): Process
     {
-        /** @var Process<string, string> */
         return new Process($command, $cwd);
     }
 }
