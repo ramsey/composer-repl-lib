@@ -22,11 +22,18 @@ use function realpath;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_MAJOR_VERSION;
+use const PHP_OS_FAMILY;
 
 class ReplTest extends TestCase
 {
     public function testReplCommand(): void
     {
+        if (PHP_OS_FAMILY === 'Windows') {
+            $this->markTestSkipped(
+                'Skipping on Windows due to a problem recognizing the command.',
+            );
+        }
+
         if (PHP_MAJOR_VERSION < 8) {
             $this->markTestSkipped(
                 'Skipping on PHP 7.4 due to a problem getting the command output.',
