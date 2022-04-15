@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
 use function dirname;
+use function getenv;
 use function implode;
 use function phpversion;
 use function realpath;
@@ -61,6 +62,12 @@ class ReplTest extends TestCase
 
     public function testReplRun(): void
     {
+        if (getenv('GITHUB_ACTIONS') === 'true') {
+            $this->markTestSkipped(
+                'Skipping when running via GitHub Actions, due to a problem getting the command output.',
+            );
+        }
+
         $shellVersion = Shell::VERSION;
         $phpVersion = phpversion();
 
