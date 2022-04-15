@@ -84,6 +84,9 @@ class ReplCommand extends BaseCommand
         return $process->run();
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function requireComposerLocal(): Composer
     {
         if (method_exists($this, 'requireComposer')) {
