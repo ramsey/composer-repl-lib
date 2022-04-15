@@ -1,5 +1,6 @@
+/.box_dump/
 /captainhook.config.json
-/composer.lock
 /phpcs.xml
 /phpunit.xml
+/tools/
 /vendor/

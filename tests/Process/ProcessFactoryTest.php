@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Ramsey\Test\Dev\Repl\Process;
 
-use Ramsey\Dev\Repl\Process\Process;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Tools\TestCase;
+use Symfony\Component\Process\Process as SymfonyProcess;
 
 class ProcessFactoryTest extends TestCase
 {
@@ -14,6 +14,6 @@ class ProcessFactoryTest extends TestCase
     {
         $factory = new ProcessFactory();
 
-        $this->assertInstanceOf(Process::class, $factory->factory(['ls']));
+        $this->assertInstanceOf(SymfonyProcess::class, $factory->factory(['ls']));
     }
 }

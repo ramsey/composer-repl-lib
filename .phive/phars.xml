@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phive xmlns="https://phar.io/phive">
+  <phar name="box" url="https://github.com/box-project/box/releases/download/3.16.0/box.phar" version="3.16.0" installed="3.16.0" location="./tools/box" copy="false"/>
+  <phar name="captainhook" url="https://github.com/captainhookphp/captainhook/releases/download/5.10.8/captainhook.phar" version="5.10.8" installed="5.10.8" location="./tools/captainhook" copy="false"/>
+  <phar name="php-scoper" url="https://github.com/humbug/php-scoper/releases/download/0.17.2/php-scoper.phar" version="0.17.2" installed="0.17.2" location="./tools/php-scoper" copy="false"/>
+  <phar name="phpcbf" url="https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.6.2/phpcbf.phar" version="3.6.2" installed="3.6.2" location="./tools/phpcbf" copy="false"/>
+  <phar name="phpcs" url="https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.6.2/phpcs.phar" version="3.6.2" installed="3.6.2" location="./tools/phpcs" copy="false"/>
+  <phar name="phpstan" url="https://github.com/phpstan/phpstan/releases/download/1.4.9/phpstan.phar" version="1.4.9" installed="1.4.9" location="./tools/phpstan" copy="false"/>
+  <phar name="phpunit" url="https://phar.phpunit.de/phpunit-9.5.18.phar" version="9.5.18" installed="9.5.18" location="./tools/phpunit" copy="false"/>
+  <phar name="psalm" url="https://github.com/vimeo/psalm/releases/download/4.22.0/psalm.phar" version="4.22.0" installed="4.22.0" location="./tools/psalm" copy="false"/>
+</phive>

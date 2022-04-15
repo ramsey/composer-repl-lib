@@ -6,10 +6,9 @@ namespace Ramsey\Test\Dev\Repl\Psy;
 
 use Composer\Composer;
 use Composer\Config;
-use Mockery\MockInterface;
+use Exception;
 use Psy\Context;
 use Psy\Shell;
-use Ramsey\Dev\Repl\Process\Process;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Repl\Psy\PhpunitRunCommand;
 use Ramsey\Dev\Tools\TestCase;
@@ -17,19 +16,16 @@ use RuntimeException;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process as SymfonyProcess;
 
 use const DIRECTORY_SEPARATOR;
 
 class PhpunitRunCommandTest extends TestCase
 {
-    /**
-     * @var Composer & MockInterface $composer
-     */
     private Composer $composer;
 
     public function setUp(): void
     {
-        /** @var Config & MockInterface $config */
         $config = $this->mockery(Config::class);
         $config->allows()->get('bin-dir')->andReturn('/path/to/vendor/bin');
 
@@ -40,10 +36,8 @@ class PhpunitRunCommandTest extends TestCase
 
     public function testGetApplication(): void
     {
-        /** @var ProcessFactory & MockInterface $processFactory */
         $processFactory = $this->mockery(ProcessFactory::class);
 
-        /** @var Shell & MockInterface $application */
         $application = $this->mockery(Shell::class, [
             'getHelperSet' => $this->mockery(HelperSet::class),
         ]);
@@ -56,7 +50,6 @@ class PhpunitRunCommandTest extends TestCase
 
     public function testGetApplicationThrowsException(): void
     {
-        /** @var ProcessFactory & MockInterface $processFactory */
         $processFactory = $this->mockery(ProcessFactory::class);
 
         $command = new PhpunitRunCommand('/path/to/repo', $processFactory, $this->composer);
@@ -69,10 +62,8 @@ class PhpunitRunCommandTest extends TestCase
 
     public function testGetContext(): void
     {
-        /** @var ProcessFactory & MockInterface $processFactory */
         $processFactory = $this->mockery(ProcessFactory::class);
 
-        /** @var Context & MockInterface $context */
         $context = $this->mockery(Context::class);
 
         $command = new PhpunitRunCommand('/path/to/repo', $processFactory, $this->composer);
@@ -83,7 +74,6 @@ class PhpunitRunCommandTest extends TestCase
 
     public function testGetContextThrowsException(): void
     {
-        /** @var ProcessFactory & MockInterface $processFactory */
         $processFactory = $this->mockery(ProcessFactory::class);
 
         $command = new PhpunitRunCommand('/path/to/repo', $processFactory, $this->composer);
@@ -97,6 +87,8 @@ class PhpunitRunCommandTest extends TestCase
     /**
      * @param string[] $expectedParams
      *
+     * @throws Exception
+     *
      * @dataProvider provideCommandInput
      */
     public function testCommand(
@@ -106,12 +98,11 @@ class PhpunitRunCommandTest extends TestCase
     ): void {
         $input = new StringInput($commandLine);
 
-        /** @var OutputInterface & MockInterface $output */
         $output = $this->mockery(OutputInterface::class);
         $output->expects()->writeln('')->twice();
         $output->expects()->write('this is some output');
 
-        $process = $this->mockery(Process::class);
+        $process = $this->mockery(SymfonyProcess::class);
         $process->expects()->start();
         $process->shouldReceive('wait')->andReturnUsing(
             function (callable $callback) use ($expectedExitCode): int {
@@ -121,7 +112,6 @@ class PhpunitRunCommandTest extends TestCase
             },
         );
 
-        /** @var ProcessFactory & MockInterface $processFactory */
         $processFactory = $this->mockery(ProcessFactory::class);
         $processFactory
             ->expects()
