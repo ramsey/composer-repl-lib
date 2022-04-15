@@ -9,7 +9,6 @@ use Composer\IO\ConsoleIO;
 use Psy\Shell;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Repl\Repl;
-use Ramsey\Dev\Tools\TestCase;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -21,12 +20,17 @@ use function phpversion;
 use function realpath;
 
 use const DIRECTORY_SEPARATOR;
+use const PHP_MAJOR_VERSION;
 
 class ReplTest extends TestCase
 {
     public function testReplCommand(): void
     {
-        $this->markTestSkipped('Skipping until fix for devtools-lib is merged');
+        if (PHP_MAJOR_VERSION < 8) {
+            $this->markTestSkipped(
+                'Skipping on PHP 7.4 due to a problem getting the command output.',
+            );
+        }
 
         $processFactory = new ProcessFactory();
         $process = $processFactory->factory(['bin/repl'], dirname(__DIR__));
@@ -55,13 +59,8 @@ class ReplTest extends TestCase
         $this->assertSame($expected, $process->getOutput());
     }
 
-    /**
-     * @group foo
-     */
     public function testReplRun(): void
     {
-        $this->markTestSkipped('Skipping until fix for devtools-lib is merged');
-
         $shellVersion = Shell::VERSION;
         $phpVersion = phpversion();
 

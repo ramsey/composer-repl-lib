@@ -6,20 +6,12 @@
         "verbosity": "normal"
     },
     "commit-msg": {
-        "enabled": true,
-        "actions": [
-            {
-                "action": "\\Ramsey\\CaptainHook\\ValidateConventionalCommit"
-            }
-        ]
+        "enabled": false,
+        "actions": []
     },
     "pre-push": {
-        "enabled": true,
-        "actions": [
-            {
-                "action": "composer test"
-            }
-        ]
+        "enabled": false,
+        "actions": []
     },
     "pre-commit": {
         "enabled": true,
@@ -63,12 +55,8 @@
         ]
     },
     "prepare-commit-msg": {
-        "enabled": true,
-        "actions": [
-            {
-                "action": "\\Ramsey\\CaptainHook\\PrepareConventionalCommit"
-            }
-        ]
+        "enabled": false,
+        "actions": []
     },
     "post-commit": {
         "enabled": false,

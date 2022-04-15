@@ -6,13 +6,12 @@ namespace Ramsey\Test\Dev\Repl\Psy;
 
 use Exception;
 use InvalidArgumentException;
-use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Psy\Context;
 use Psy\Input\ShellInput;
 use Psy\Shell;
 use Ramsey\Dev\Repl\Psy\PhpunitTestCommand;
-use Ramsey\Dev\Tools\TestCase;
+use Ramsey\Test\Dev\Repl\TestCase;
 use RuntimeException;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -24,7 +23,6 @@ class PhpunitTestCommandTest extends TestCase
 
     public function setUp(): void
     {
-        /** @var Context & MockInterface $context */
         $context = $this->mockery(Context::class);
         $context->allows()->get('phpunit')->andReturn(new class extends PHPUnitTestCase {
         });
@@ -34,7 +32,6 @@ class PhpunitTestCommandTest extends TestCase
 
     public function testGetApplication(): void
     {
-        /** @var Shell & MockInterface $application */
         $application = $this->mockery(Shell::class, [
             'getHelperSet' => $this->mockery(HelperSet::class),
         ]);
@@ -57,7 +54,6 @@ class PhpunitTestCommandTest extends TestCase
 
     public function testGetContext(): void
     {
-        /** @var Context & MockInterface $context */
         $context = $this->mockery(Context::class);
 
         $command = new PhpunitTestCommand();
@@ -85,7 +81,6 @@ class PhpunitTestCommandTest extends TestCase
     ): void {
         $input = new ShellInput($invalidAssertion);
 
-        /** @var OutputInterface & MockInterface $output */
         $output = $this->mockery(OutputInterface::class);
 
         $command = new PhpunitTestCommand();
@@ -130,7 +125,6 @@ class PhpunitTestCommandTest extends TestCase
     {
         $input = new ShellInput('assertSame(2, $bar)');
 
-        /** @var Shell & MockInterface $application */
         $application = $this->mockery(Shell::class, [
             'getHelperSet' => $this->mockery(HelperSet::class),
             'getDefinition' => $this->mockery(InputDefinition::class, [
@@ -140,7 +134,6 @@ class PhpunitTestCommandTest extends TestCase
         ]);
         $application->expects()->execute('$phpunit->assertSame(2, $bar)', true);
 
-        /** @var OutputInterface & MockInterface $output */
         $output = $this->mockery(OutputInterface::class);
         $output->expects()->writeln('<fg=cyan>Test passed!</>');
 
@@ -155,7 +148,6 @@ class PhpunitTestCommandTest extends TestCase
     {
         $input = new ShellInput('assertIsArray($bar);');
 
-        /** @var Shell & MockInterface $application */
         $application = $this->mockery(Shell::class, [
             'getHelperSet' => $this->mockery(HelperSet::class),
             'getDefinition' => $this->mockery(InputDefinition::class, [
@@ -168,7 +160,6 @@ class PhpunitTestCommandTest extends TestCase
             ->execute('$phpunit->assertIsArray($bar);', true)
             ->andThrow(new Exception('something bad happened'));
 
-        /** @var OutputInterface & MockInterface $output */
         $output = $this->mockery(OutputInterface::class);
         $output->expects()->writeln('<error>Test failed: something bad happened</error>');
 

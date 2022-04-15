@@ -139,6 +139,9 @@ jobs:
         dependencies:
           - "lowest"
           - "highest"
+        exclude:
+          - php-version: "8.1"
+            dependencies: "lowest"
 
     steps:
       - name: "Configure Git (for Windows)"

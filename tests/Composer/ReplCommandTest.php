@@ -10,7 +10,7 @@ use Composer\EventDispatcher\EventDispatcher;
 use Composer\Package\RootPackageInterface;
 use Ramsey\Dev\Repl\Composer\ReplCommand;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
-use Ramsey\Dev\Tools\TestCase;
+use Ramsey\Test\Dev\Repl\TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
