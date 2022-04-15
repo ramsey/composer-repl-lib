@@ -9,24 +9,36 @@ use Composer\IO\ConsoleIO;
 use Psy\Shell;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Repl\Repl;
-use Ramsey\Dev\Tools\TestCase;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
 use function dirname;
+use function getenv;
 use function implode;
 use function phpversion;
 use function realpath;
 
 use const DIRECTORY_SEPARATOR;
+use const PHP_MAJOR_VERSION;
+use const PHP_OS_FAMILY;
 
 class ReplTest extends TestCase
 {
     public function testReplCommand(): void
     {
-        $this->markTestSkipped('Skipping until fix for devtools-lib is merged');
+        if (PHP_OS_FAMILY === 'Windows') {
+            $this->markTestSkipped(
+                'Skipping on Windows due to a problem recognizing the command.',
+            );
+        }
+
+        if (PHP_MAJOR_VERSION < 8) {
+            $this->markTestSkipped(
+                'Skipping on PHP 7.4 due to a problem getting the command output.',
+            );
+        }
 
         $processFactory = new ProcessFactory();
         $process = $processFactory->factory(['bin/repl'], dirname(__DIR__));
@@ -55,12 +67,13 @@ class ReplTest extends TestCase
         $this->assertSame($expected, $process->getOutput());
     }
 
-    /**
-     * @group foo
-     */
     public function testReplRun(): void
     {
-        $this->markTestSkipped('Skipping until fix for devtools-lib is merged');
+        if (getenv('GITHUB_ACTIONS') === 'true') {
+            $this->markTestSkipped(
+                'Skipping when running via GitHub Actions, due to a problem getting the command output.',
+            );
+        }
 
         $shellVersion = Shell::VERSION;
         $phpVersion = phpversion();

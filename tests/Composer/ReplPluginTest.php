@@ -11,7 +11,7 @@ use Mockery;
 use Mockery\MockInterface;
 use Ramsey\Dev\Repl\Composer\ReplCommand;
 use Ramsey\Dev\Repl\Composer\ReplPlugin;
-use Ramsey\Dev\Tools\TestCase;
+use Ramsey\Test\Dev\Repl\TestCase;
 
 class ReplPluginTest extends TestCase
 {
@@ -29,8 +29,7 @@ class ReplPluginTest extends TestCase
 
     public function testGetCommands(): void
     {
-        /** @var Composer & MockInterface $composer */
-        $composer = Mockery::mock(Composer::class);
+        $composer = $this->mockery(Composer::class);
 
         /** @var IOInterface & MockInterface $io */
         $io = Mockery::spy(IOInterface::class);
@@ -40,15 +39,13 @@ class ReplPluginTest extends TestCase
 
         $commands = $plugin->getCommands();
 
-        $this->assertIsArray($commands);
         $this->assertCount(1, $commands);
         $this->assertInstanceOf(ReplCommand::class, $commands[0]);
     }
 
     public function testActivate(): void
     {
-        /** @var Composer & MockInterface $composer */
-        $composer = Mockery::mock(Composer::class);
+        $composer = $this->mockery(Composer::class);
 
         /** @var IOInterface & MockInterface $io */
         $io = Mockery::spy(IOInterface::class);
@@ -62,8 +59,7 @@ class ReplPluginTest extends TestCase
 
     public function testDeactivate(): void
     {
-        /** @var Composer & MockInterface $composer */
-        $composer = Mockery::mock(Composer::class);
+        $composer = $this->mockery(Composer::class);
 
         /** @var IOInterface & MockInterface $io */
         $io = Mockery::spy(IOInterface::class);
@@ -77,8 +73,7 @@ class ReplPluginTest extends TestCase
 
     public function testUninstall(): void
     {
-        /** @var Composer & MockInterface $composer */
-        $composer = Mockery::mock(Composer::class);
+        $composer = $this->mockery(Composer::class);
 
         /** @var IOInterface & MockInterface $io */
         $io = Mockery::spy(IOInterface::class);

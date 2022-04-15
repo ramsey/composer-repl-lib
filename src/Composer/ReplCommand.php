@@ -29,6 +29,8 @@ use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use function method_exists;
+
 use const DIRECTORY_SEPARATOR;
 
 /**
@@ -65,9 +67,7 @@ class ReplCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Config::disableProcessTimeout();
-
-        /** @var Composer $composer */
-        $composer = $this->getComposer(true);
+        $composer = $this->requireComposerLocal();
 
         /** @var string $binDir */
         $binDir = $composer->getConfig()->get('bin-dir');
@@ -82,5 +82,22 @@ class ReplCommand extends BaseCommand
         }
 
         return $process->run();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    private function requireComposerLocal(): Composer
+    {
+        if (method_exists($this, 'requireComposer')) {
+            /** @var Composer */
+            return $this->requireComposer();
+        }
+
+        /**
+         * @var Composer
+         * @psalm-suppress DeprecatedMethod
+         */
+        return $this->getComposer(true);
     }
 }

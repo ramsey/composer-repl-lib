@@ -20,20 +20,37 @@
 
 declare(strict_types=1);
 
-namespace Ramsey\Dev\Repl\Process;
+namespace Ramsey\Test\Dev\Repl;
+
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
- * Factory to create a Process instance for running commands
- *
- * @internal
+ * A base test case for common test functionality
  */
-class ProcessFactory
+abstract class TestCase extends PHPUnitTestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
-     * @param string[] $command
+     * Configures and returns a mock object
+     *
+     * @param class-string<T> $class
+     * @param mixed ...$arguments
+     *
+     * @return T & MockInterface
+     *
+     * @template T
+     *
+     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function factory(array $command, ?string $cwd = null): Process
+    public function mockery(string $class, ...$arguments)
     {
-        return new Process($command, $cwd);
+        /** @var T & MockInterface $mock */
+        $mock = Mockery::mock($class, ...$arguments);
+
+        return $mock;
     }
 }
