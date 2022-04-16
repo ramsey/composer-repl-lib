@@ -83,6 +83,8 @@ class ReplTest extends TestCase
         $expected = implode("\n", $lines);
 
         $input = new StringInput('');
+        $input->setInteractive(false);
+
         $output = Factory::createOutput();
         $helperSet = new HelperSet();
         $io = new ConsoleIO($input, $output, $helperSet);
