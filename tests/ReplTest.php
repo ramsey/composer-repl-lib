@@ -11,13 +11,17 @@ use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Repl\Repl;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
+use function assert;
 use function dirname;
+use function fopen;
 use function implode;
+use function is_resource;
 use function phpversion;
 use function realpath;
+use function stream_get_contents;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_MAJOR_VERSION;
@@ -83,8 +87,6 @@ class ReplTest extends TestCase
         $expected = implode("\n", $lines);
 
         $input = new StringInput('');
-        $input->setInteractive(false);
-
         $output = Factory::createOutput();
         $helperSet = new HelperSet();
         $io = new ConsoleIO($input, $output, $helperSet);
@@ -94,11 +96,16 @@ class ReplTest extends TestCase
 
         $repositoryRoot = (string) realpath(dirname($composerFile));
         $processFactory = new ProcessFactory();
-        $bufferedOutput = new BufferedOutput();
+
+        $stream = fopen('php://memory', 'ab+');
+        assert(is_resource($stream));
+        $streamOutput = new StreamOutput($stream);
 
         $repl = new Repl($repositoryRoot, $processFactory, $composer, false);
-        $repl->run($input, $bufferedOutput);
+        $repl->run($input, $streamOutput);
 
-        $this->assertSame($expected, $bufferedOutput->fetch());
+        $contents = stream_get_contents($stream, -1, 0);
+
+        $this->assertSame($expected, $contents);
     }
 }
