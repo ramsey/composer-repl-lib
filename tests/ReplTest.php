@@ -96,6 +96,12 @@ class ReplTest extends TestCase
             );
         }
 
+        if (getenv('COMPOSER_REPL') === '1') {
+            $this->markTestSkipped(
+                'Skipping when running via Composer REPL, due to a problem getting the command output.',
+            );
+        }
+
         $shellVersion = Shell::VERSION;
         $phpVersion = phpversion();
 
@@ -160,6 +166,8 @@ class ReplTest extends TestCase
 
         $this->assertArrayHasKey('env', $scopeVariables);
         $this->assertIsArray($scopeVariables['env']);
+        $this->assertArrayHasKey('COMPOSER_REPL', $scopeVariables['env']);
+        $this->assertSame('1', $scopeVariables['env']['COMPOSER_REPL']);
         $this->assertArrayHasKey('phpunit', $scopeVariables);
         $this->assertInstanceOf(PhpUnitTestCase::class, $scopeVariables['phpunit']);
     }

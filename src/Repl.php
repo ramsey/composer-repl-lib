@@ -34,6 +34,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function getenv;
+use function putenv;
 use function sprintf;
 
 /**
@@ -79,7 +80,19 @@ class Repl
         ));
         $shell->add(new ElephpantCommand());
 
-        return $shell->run($input, $output);
+        // phpcs:disable SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+        $_ENV['COMPOSER_REPL'] = '1';
+        putenv('COMPOSER_REPL=1');
+        // phpcs:enable
+
+        $result = $shell->run($input, $output);
+
+        // phpcs:disable SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+        unset($_ENV['COMPOSER_REPL']);
+        putenv('COMPOSER_REPL');
+        // phpcs:enable
+
+        return $result;
     }
 
     /**
@@ -141,8 +154,11 @@ class Repl
      */
     private function buildScopeVariables(): array
     {
+        $env = getenv();
+        $env['COMPOSER_REPL'] = '1';
+
         return [
-            'env' => getenv(),
+            'env' => $env,
             'phpunit' => $this->getPhpUnitTestCase(),
         ];
     }
