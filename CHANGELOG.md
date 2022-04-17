@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.1.0 - 2022-04-16
+
+### Added
+
+- Add `Repl::getConfig()` and `Repl::getScopeVariables()` public methods.
+- Set a `COMPOSER_REPL` environment variable with the value `"1"` when running in the context of the REPL.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.0.1 - 2022-01-18
 
 ### Added
@@ -25,7 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Move composer/composer to `require` depedencies, since the REPL no longer runs within the scope of `composer.phar`.
+- Move composer/composer to `require` dependencies, since the REPL no longer runs within the scope of `composer.phar`.
 
 ## 1.0.0 - 2022-01-18
 
