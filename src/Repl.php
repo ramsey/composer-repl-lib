@@ -47,7 +47,12 @@ class Repl
     private string $repositoryRoot;
     private ProcessFactory $processFactory;
     private Composer $composer;
-    private bool $isInteractive;
+    private Configuration $configuration;
+
+    /**
+     * @var array{env: array<string, string>, phpunit: TestCase}
+     */
+    private array $scopeVariables;
 
     public function __construct(
         string $repositoryRoot,
@@ -58,12 +63,13 @@ class Repl
         $this->repositoryRoot = $repositoryRoot;
         $this->processFactory = $processFactory;
         $this->composer = $composer;
-        $this->isInteractive = $isInteractive;
+        $this->scopeVariables = $this->buildScopeVariables();
+        $this->configuration = $this->buildConfig($composer, $isInteractive);
     }
 
     public function run(?InputInterface $input = null, ?OutputInterface $output = null): int
     {
-        $shell = new Shell($this->getPsyConfig());
+        $shell = new Shell($this->getConfig());
         $shell->setScopeVariables($this->getScopeVariables());
         $shell->add(new PhpunitTestCommand());
         $shell->add(new PhpunitRunCommand(
@@ -76,24 +82,42 @@ class Repl
         return $shell->run($input, $output);
     }
 
-    private function getPsyConfig(): Configuration
+    /**
+     * @psalm-mutation-free
+     */
+    public function getConfig(): Configuration
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @return array<string, mixed>
+     *
+     * @psalm-mutation-free
+     */
+    public function getScopeVariables(): array
+    {
+        return $this->scopeVariables;
+    }
+
+    private function buildConfig(Composer $composer, bool $isInteractive): Configuration
     {
         $config = new Configuration([
-            'startupMessage' => $this->getStartupMessage(),
+            'startupMessage' => $this->buildStartupMessage($composer),
             'colorMode' => Configuration::COLOR_MODE_FORCED,
             'updateCheck' => 'never',
             'useBracketedPaste' => true,
-            'defaultIncludes' => $this->getDefaultIncludes(),
+            'defaultIncludes' => $this->buildDefaultIncludes($composer),
         ]);
 
-        if ($this->isInteractive === false) {
+        if ($isInteractive === false) {
             $config->setInteractiveMode(Configuration::INTERACTIVE_MODE_DISABLED);
         }
 
         return $config;
     }
 
-    private function getStartupMessage(): string
+    private function buildStartupMessage(Composer $composer): string
     {
         $startupMessage = <<<'EOD'
             ------------------------------------------------------------------------
@@ -102,7 +126,7 @@ class Repl
             ------------------------------------------------------------------------
             EOD;
 
-        $packageName = $this->composer->getPackage()->getPrettyName();
+        $packageName = $composer->getPackage()->getPrettyName();
         $forPackage = '';
 
         if ($packageName !== '__root__') {
@@ -115,7 +139,7 @@ class Repl
     /**
      * @return array{env: array<string, string>, phpunit: TestCase}
      */
-    private function getScopeVariables(): array
+    private function buildScopeVariables(): array
     {
         return [
             'env' => getenv(),
@@ -126,10 +150,10 @@ class Repl
     /**
      * @return string[]
      */
-    private function getDefaultIncludes(): array
+    private function buildDefaultIncludes(Composer $composer): array
     {
         /** @var ComposerExtrasType $extra */
-        $extra = $this->composer->getPackage()->getExtra();
+        $extra = $composer->getPackage()->getExtra();
 
         return $extra['ramsey/composer-repl']['includes'] ?? [];
     }
