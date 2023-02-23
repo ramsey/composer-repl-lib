@@ -134,7 +134,7 @@ class Repl
     {
         $startupMessage = <<<'EOD'
             ------------------------------------------------------------------------
-            <info>Welcome to the development console (REPL)%s.</info>
+            <fg=green>Welcome to the development console (REPL)%s.</>
             <fg=cyan>To learn more about what you can do in PsySH, type `help`.</>
             ------------------------------------------------------------------------
             EOD;

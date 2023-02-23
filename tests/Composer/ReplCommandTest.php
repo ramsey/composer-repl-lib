@@ -60,6 +60,8 @@ class ReplCommandTest extends TestCase
             false,
         );
 
-        $command->run($input, $output);
+        $status = $command->run($input, $output);
+
+        $this->assertIsInt($status);
     }
 }

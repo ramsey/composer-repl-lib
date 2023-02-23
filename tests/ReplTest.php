@@ -63,7 +63,7 @@ class ReplTest extends TestCase
 
         $processFactory = new ProcessFactory();
         $process = $processFactory->factory(['bin/repl'], dirname(__DIR__));
-        $process->setTimeout(2);
+        $process->setTimeout(3);
         $process->setPty(true);
 
         try {
@@ -75,17 +75,18 @@ class ReplTest extends TestCase
         $phpVersion = phpversion();
 
         $lines = [
-            "\e[34mPsy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman\e[39m",
+            "\e[90mPsy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman\e[39m",
             '------------------------------------------------------------------------',
             "\e[32mWelcome to the development console (REPL) for ramsey/composer-repl-lib.\e[39m",
             "\e[36mTo learn more about what you can do in PsySH, type `help`.\e[39m",
             '------------------------------------------------------------------------',
-            '>>> ',
+            '> ',
         ];
 
         $expected = implode("\r\n", $lines);
+        $output = $process->getOutput();
 
-        $this->assertSame($expected, $process->getOutput());
+        $this->assertSame($expected, $output);
     }
 
     public function testReplRun(): void
@@ -106,7 +107,7 @@ class ReplTest extends TestCase
         $phpVersion = phpversion();
 
         $lines = [
-            "<aside>Psy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman</aside>",
+            "<whisper>Psy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman</whisper>",
             '------------------------------------------------------------------------',
             "\e[32mWelcome to the development console (REPL) for ramsey/composer-repl-lib.\e[39m",
             "\e[36mTo learn more about what you can do in PsySH, type `help`.\e[39m",
@@ -145,7 +146,7 @@ class ReplTest extends TestCase
     {
         $expected = <<<'EOD'
             ------------------------------------------------------------------------
-            <info>Welcome to the development console (REPL) for ramsey/composer-repl-lib.</info>
+            <fg=green>Welcome to the development console (REPL) for ramsey/composer-repl-lib.</>
             <fg=cyan>To learn more about what you can do in PsySH, type `help`.</>
             ------------------------------------------------------------------------
             EOD;
