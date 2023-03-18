@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.2.0 - 2023-03-18
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Set minimum required version of PHP to 8.1.
+- Set minimum required version of PHPUnit to 10.0.
+- Set minimum required versions of symfony/console, symfony/finder, and symfony/process to 6.0.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.1.0 - 2022-04-16
 
 ### Added
