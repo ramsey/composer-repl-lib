@@ -24,7 +24,6 @@ use function phpversion;
 use function realpath;
 
 use const DIRECTORY_SEPARATOR;
-use const PHP_MAJOR_VERSION;
 use const PHP_OS_FAMILY;
 
 class ReplTest extends TestCase
@@ -55,9 +54,15 @@ class ReplTest extends TestCase
             );
         }
 
-        if (PHP_MAJOR_VERSION < 8) {
+        if (getenv('GITHUB_ACTIONS') === 'true') {
             $this->markTestSkipped(
-                'Skipping on PHP 7.4 due to a problem getting the command output.',
+                'Skipping when running via GitHub Actions, due to a problem returning control to the calling script.',
+            );
+        }
+
+        if (getenv('COMPOSER_REPL') === '1') {
+            $this->markTestSkipped(
+                'Skipping when running via Composer REPL, due to a problem returning control to the calling script.',
             );
         }
 
