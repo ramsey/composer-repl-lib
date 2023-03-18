@@ -46,7 +46,7 @@ class ReplCommand extends BaseCommand
         string $repositoryRoot,
         ProcessFactory $processFactory,
         Composer $composer,
-        bool $isInteractive = true
+        bool $isInteractive = true,
     ) {
         parent::__construct();
 

@@ -59,7 +59,7 @@ class Repl
         string $repositoryRoot,
         ProcessFactory $processFactory,
         Composer $composer,
-        bool $isInteractive = true
+        bool $isInteractive = true,
     ) {
         $this->repositoryRoot = $repositoryRoot;
         $this->processFactory = $processFactory;
@@ -180,7 +180,7 @@ class Repl
      */
     private function getPhpUnitTestCase(): TestCase
     {
-        return new class extends TestCase {
+        return new class ('ramsey/composer-repl') extends TestCase {
         };
     }
 }

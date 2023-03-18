@@ -47,7 +47,7 @@ class PhpunitRunCommand extends ContextAwareCommand
     public function __construct(
         string $repositoryRoot,
         ProcessFactory $processFactory,
-        Composer $composer
+        Composer $composer,
     ) {
         parent::__construct(null);
 

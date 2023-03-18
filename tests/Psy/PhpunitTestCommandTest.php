@@ -24,7 +24,7 @@ class PhpunitTestCommandTest extends TestCase
     public function setUp(): void
     {
         $context = $this->mockery(Context::class);
-        $context->allows()->get('phpunit')->andReturn(new class extends PHPUnitTestCase {
+        $context->allows()->get('phpunit')->andReturn(new class ('test') extends PHPUnitTestCase {
         });
 
         $this->context = $context;
@@ -77,7 +77,7 @@ class PhpunitTestCommandTest extends TestCase
      */
     public function testCommandThrowsExceptionForInvalidAssertions(
         string $invalidAssertion,
-        string $exceptionMessage
+        string $exceptionMessage,
     ): void {
         $input = new ShellInput($invalidAssertion);
 
@@ -95,7 +95,7 @@ class PhpunitTestCommandTest extends TestCase
     /**
      * @return array<array<string, string>>
      */
-    public function provideInvalidAssertions(): array
+    public static function provideInvalidAssertions(): array
     {
         return [
             [

@@ -42,30 +42,31 @@ class ElephpantCommand extends Command
         $output->writeln(
             <<<'EOF'
             <fg=blue>
-                                ^;)|` `-;;-`
-                              -uwu/;lPMMMMMMa^
-                         .-/>lv_\fWMMMMMMMMMMQ-|NNBWQQQMMMMMQBmD0v=-`
-                     ;JXMMMMMMMMMMMMMMMMMMMMMMm XMMMMMMMMMMMMMMMMMMMMP1.          -;^
-                   lWMMWGPPAQMMMMMMMMMMMMMMMMMM:>MMMMMMMMMMMMMMMMMMMMMMMw- -::^ `;1rvl^
-                  aMMD-\JwGPdMMMMMMMMMMMMMMMMMMr-MMMMMMM@DWMMMMMMMMMMMMMMMc      `:=)`
-                 ;MMMQNMQ0raMMMMMMMMMMMMMMMMMMMu.MMMMMMv  XMMMMMMMMMMMMMMMMy       ``
-                 cMMMMMq.)l7vMMMMMMMMMMMMMMMMMMl`;|lXMM^  ::;|lRMd;:::;\>oQMl
-                 0MMMMMWrW0_*MMMQMMMTMMMMMMMMMW.}s:  aD  ]TaI  \M+  0kac  :MW
-                 TMMMMMMMKKqMMMM@r770MMMMMMMMD,1MMi  x| `QMML  oQ` /MMMB` -MM,
-                 FMMMMMMMMMMMMMMMM:GMMMMFr=:` 7vl: `zW  )MMM- `Qz  *ct)` :qMM-
-                 FMMMMMMMMMMMMMMMP/MMMM:/GV  :)=>}xQMg==KMMM>)2M, `))=?cAMMMN
-                 FMMMMMMMMMMMMMQc=QMMMM2NM; `WMMMMMMMMMMMMMMMMMX  cMMMMMMMMQ:
-                 FMMMMMMMMD>-^. -=v07QMMMMWNWMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMQ~
-                 FMMMMMMM=      MQ@v WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM,
-                 FMMMMMMD       MMMK WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM,
-                 FMMMMMMl       MMMK WMMMMMMMMMMMMM@`T@AA@Pa:oMMMMMMMMMMMMMM,
-                 FMMMMMM:       KKMK WMMMMMMMMMMMMMP    :>z2.tMMMMMMMMMMMMMM,
-                 FMMMMMM.       bXVK WMMMMMMMMMMMMMP    |qcM-tMMWXMMMMMMMMMM,
-                 FMMMMMQ       [Qcyv qPLPkPMMMMMMMMP    #waJ,lkoTqoNMMMMMMMM,
-                 FMMMMM@       ?2NMt uVKMqvaqMMMMMMP   `QvMq /EoMMLasMMMMMMM,
-                 0MMMMMu        .7Vv_MvMMvMMvMMMMMMa    ^-ka^mzQMnNMXTMMMMMM.
-                 `*rv}/`            `oiQWzMMu#MMMQf.        `-7cM3BMmYMMMEo_
-                                       `\^;;-)/:^               `^`^`,~.`
+                              ╓φÆÆφ╤ ┌╤φφφ╗
+                           ┌▓╨  ,▄Φ▀╙      └▀╗
+                      ,╖╤φ▓▌▀▓▓▀╙            ╙▓╙╙╙╙╙╙╙└└└└└└└╙╙╙╨▀▀Φφ╕
+                 ,é▀▀╙└                       ╙▌             ...,┌┌:;┘╙▀▀╕          ,╤φφ╕
+               ╒▌╙                             ▓µ          '..,,┌┌¡¡¡░░░░┤╢▌╤╤╤╤╤╤╤▓▓ΦΦΦ▓φ╖
+              ╣▀    ▄ΦΦ▀Γ²¬                    ╫▌         ...,┌┌┐┐¡¡░░░░░░░░╣▓╣╣╣▓▓▌φ▄▄▄▄▄▀
+             ⌠▌    ╙                           ╞▌       ]φφ ┌┌:┐¡¡░░░░░░░░░░░╩▓    `╩╣▄▄╣╛
+             ▓Γ        ,.,                     ╞▌   '   ▓▓▌ ''`ⁿ≥░░`""""""ⁿ╚▒▒╩▓
+             ▓─       Γ j▒╣                    ╫▀▀▓▓▌ .╒▓▓▌▀▀▓▓▓▌` ╫▓▓▀▀▀▓▓▓╦╙▒╫▌
+             ▓        \ -╜     ▄  ╓Γ          ▐▌   ▓▓▌ ╣▓▓ ░░ ▓▓▓, ▓▓▌╚░╠[╢▓▓ ▒╩▓
+             ▓                  └▓          ╥▓▀ ' Æ▓▓¬ ▓▓Γ≥¡░┌▓▓Γ[@▓▓ ░▒╚ ▓▓▌.▒▒▓
+             ▓                  ┌▌     ▄Φ▀╫▓▓▓Φ▓▓▓▓╩. ║▓▓ ░░ ╫▓▓  ▓▓▓▓▓▓▓▓▌Γ╔▒╠╠▓
+             ▓                  ╣     ▓Γ  ▓▓▌ ... «░┌≥»»»≥░░≥«==╚]▓▓⌐≡≡≡≥≥▒▒╠╠╠╣▌
+             ▓               ,▄╝          ▀▀ ░.,,┌┌┐┐¡¡░░░░░░░░░ ╩▀▀.▒▒▒▒▒▒╠╠╠╫▓
+             ▓          ▄▀╙└└▓▀▀Φφ▄▌       ...,┌┌:;¡¡░░░░░░░░░░░░▒▒▒▒▒▒▒▒╠╠╠╠╠╠▓
+             ▓         ▓     ▓⌐   ╞▓     ...,,┌┌┐¡¡¡░░░░░░░░░░░▒▒▒▒▒▒▒▒╠╠╠╠╠╠╠╠▓
+             ▓        ║▌     ▓⌐   ╞▓   '..,┌┌:┐¡¡¡░░│░░░░░░░░▒▒▒▒▒▒▒▒▒╠╠╠╠╠╠╠╠╠▓
+             ▓        ▓Γ     ▓⌐   ╞▓  ...,┌┌┐¡¡¡░░░░▓▒▄▄▒▄▄▄▄▓▌▒▒▒▒▒╠╠╠╠╠╠╠╠╠╠╠▓
+             ▓        ▓      ▓⌐   ╞▓..~,┌┌┌┐¡¡░░░░░░▓   ▓╠╩╩▒╫▌▒▒▒╠╠╠╠╠╠╠╠╠╠╠╠╠▓
+             ▓       ]▓      ▓⌐   ╞▓.,,┌┌┐¡¡░░░░░░░░▓   ▓▒▒▒▒╫▌▒▒╠╠╠╠╠╠╠╠╠╠╠╠╠╠▓
+             ▓       ▐▓      ▓⌐  .╞▓,┌┌┐¡¡¡░░░░░░░░░▓   ▓▒▒▒▒╫▌╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠▓
+             ▓       ║▌      ╫▒..~╞▓┌┌┐¡¡░░░░░░░░░░░▓   ▓▒▒▒▒╫▌╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠▓
+             ▓       ╫Γ       ▀▌Q┌▐▓┐\¡¡░░░░░░░░░░░▒▓   '▓╬▒╠╫▓╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠╢▓
+             └▀▄▄╓╓▄Φ╨           ╙╜▀▌p░░░░░░░░░░░▒▒╣╝      └╜╝▀▓╬╠╠╠╠╠╠╠╠╠╠╠╬╣▌
+                                     └╝▀╣╣▄▄╣╣╣╣╣╝└              ╙╨╝▀╣╣╣╣╝╝╙^
 
 
                     This implementation of PsySH has Super ElePHPant Powers!

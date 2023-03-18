@@ -91,7 +91,7 @@ class PhpunitRunCommandTest extends TestCase
     public function testCommand(
         string $commandLine,
         array $expectedParams,
-        int $expectedExitCode
+        int $expectedExitCode,
     ): void {
         $input = new StringInput($commandLine);
 
@@ -123,7 +123,7 @@ class PhpunitRunCommandTest extends TestCase
     /**
      * @return array<array<string, mixed>>
      */
-    public function provideCommandInput(): array
+    public static function provideCommandInput(): array
     {
         $phpunit = '/path/to/vendor/bin' . DIRECTORY_SEPARATOR . 'phpunit';
 
