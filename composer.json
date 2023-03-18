@@ -40,6 +40,7 @@
         "psalm/plugin-mockery": "^1.1",
         "psalm/plugin-phpunit": "^0.18.4",
         "ramsey/coding-standard": "^2.2",
+        "ramsey/conventional-commits": "^1.5",
         "roave/security-advisories": "dev-latest",
         "vimeo/psalm": "^5.8"
     },
