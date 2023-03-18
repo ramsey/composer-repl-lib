@@ -54,15 +54,13 @@ class ReplTest extends TestCase
             );
         }
 
-        if (getenv('GITHUB_ACTIONS') === 'true') {
+        if (
+            getenv('GITHUB_ACTIONS') === 'true'
+            || getenv('COMPOSER_REPL') === '1'
+            || getenv('CAPTAIN_HOOK_PRE_PUSH') === '1'
+        ) {
             $this->markTestSkipped(
-                'Skipping when running via GitHub Actions, due to a problem returning control to the calling script.',
-            );
-        }
-
-        if (getenv('COMPOSER_REPL') === '1') {
-            $this->markTestSkipped(
-                'Skipping when running via Composer REPL, due to a problem returning control to the calling script.',
+                'Skipping when running in this context, due to a problem returning control to the calling script.',
             );
         }
 
@@ -96,15 +94,13 @@ class ReplTest extends TestCase
 
     public function testReplRun(): void
     {
-        if (getenv('GITHUB_ACTIONS') === 'true') {
+        if (
+            getenv('GITHUB_ACTIONS') === 'true'
+            || getenv('COMPOSER_REPL') === '1'
+            || getenv('CAPTAIN_HOOK_PRE_PUSH') === '1'
+        ) {
             $this->markTestSkipped(
-                'Skipping when running via GitHub Actions, due to a problem getting the command output.',
-            );
-        }
-
-        if (getenv('COMPOSER_REPL') === '1') {
-            $this->markTestSkipped(
-                'Skipping when running via Composer REPL, due to a problem getting the command output.',
+                'Skipping when running in this context, due to a problem returning control to the calling script.',
             );
         }
 
