@@ -19,7 +19,7 @@
         "php": "^8.1",
         "composer/composer": "^2.2",
         "phpunit/phpunit": "^10.1",
-        "psy/psysh": "^0.11.12",
+        "psy/psysh": "^0.12.0",
         "symfony/console": "^6.0",
         "symfony/finder": "^6.0",
         "symfony/process": "^6.0"
