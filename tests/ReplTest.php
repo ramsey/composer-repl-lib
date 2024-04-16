@@ -22,6 +22,7 @@ use function getenv;
 use function implode;
 use function phpversion;
 use function realpath;
+use function str_replace;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_OS_FAMILY;
@@ -83,11 +84,18 @@ class ReplTest extends TestCase
             "\e[32mWelcome to the development console (REPL) for ramsey/composer-repl-lib.\e[39m",
             "\e[36mTo learn more about what you can do in PsySH, type `help`.\e[39m",
             '------------------------------------------------------------------------',
-            '> ',
         ];
 
         $expected = implode("\r\n", $lines);
-        $output = $process->getOutput();
+
+        // Remove the prompt string, so we don't have to worry about comparing
+        // with different versions of PsySH (some include the paste-bracketing
+        // escape characters).
+        $output = str_replace(
+            ["\r\n\e[?2004h\e[?2004h> ", "\r\n> "],
+            '',
+            $process->getOutput(),
+        );
 
         $this->assertSame($expected, $output);
     }
