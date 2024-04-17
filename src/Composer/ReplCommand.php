@@ -96,7 +96,6 @@ class ReplCommand extends BaseCommand
 
         /**
          * @var Composer
-         * @psalm-suppress DeprecatedMethod
          */
         return $this->getComposer(true);
     }

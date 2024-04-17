@@ -47,7 +47,6 @@ class ReplPlugin implements Capable, CommandProvider, PluginInterface
     public function __construct()
     {
         /**
-         * @psalm-suppress UnnecessaryVarAnnotation
          * @var string $composerFile
          */
         $composerFile = Factory::getComposerFile();

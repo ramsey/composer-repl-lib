@@ -40,8 +40,8 @@ use function sprintf;
 /**
  * Customizes and controls an instance of PsySH Shell
  *
- * @psalm-type ComposerReplIncludesType = array{includes?: array<string>}
- * @psalm-type ComposerExtrasType = array{"ramsey/composer-repl"?: ComposerReplIncludesType}
+ * @phpstan-type ComposerReplIncludesType array{includes?: array<string>}
+ * @phpstan-type ComposerExtrasType array{"ramsey/composer-repl"?: ComposerReplIncludesType}
  */
 class Repl
 {
@@ -95,9 +95,6 @@ class Repl
         return $result;
     }
 
-    /**
-     * @psalm-mutation-free
-     */
     public function getConfig(): Configuration
     {
         return $this->configuration;
@@ -105,8 +102,6 @@ class Repl
 
     /**
      * @return array<string, mixed>
-     *
-     * @psalm-mutation-free
      */
     public function getScopeVariables(): array
     {
@@ -174,10 +169,6 @@ class Repl
         return $extra['ramsey/composer-repl']['includes'] ?? [];
     }
 
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor
-     * @psalm-suppress InternalMethod
-     */
     private function getPhpUnitTestCase(): TestCase
     {
         return new class ('ramsey/composer-repl') extends TestCase {
