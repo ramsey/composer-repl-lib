@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.3.0 - 2024-04-17
+
+### Added
+
+- Expand phpunit/phpunit version to include `^11.0`.
+- Expand psy/psysh version to include `^0.12.0`.
+- Expand symfony/console version to include `^7.0`.
+- Expand symfony/finder version to include `^7.0`.
+- Expand symfony/process version to include `^7.0`.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.2.0 - 2023-03-18
 
 ### Added
