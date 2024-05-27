@@ -71,6 +71,7 @@ class ElephpantCommand extends Command
 
                     This implementation of PsySH has Super ElePHPant Powers!
                               https://afieldguidetoelephpants.net
+                                      https://elephpant.me
             </>
             EOF,
         );
