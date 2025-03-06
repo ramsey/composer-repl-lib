@@ -6,6 +6,7 @@ namespace Ramsey\Test\Dev\Repl\Psy;
 
 use Composer\Composer;
 use Composer\Config;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psy\Context;
 use Psy\Shell;
 use Ramsey\Dev\Repl\Process\Process;
@@ -85,9 +86,8 @@ class PhpunitRunCommandTest extends TestCase
 
     /**
      * @param string[] $expectedParams
-     *
-     * @dataProvider provideCommandInput
      */
+    #[DataProvider('provideCommandInput')]
     public function testCommand(
         string $commandLine,
         array $expectedParams,
@@ -121,7 +121,7 @@ class PhpunitRunCommandTest extends TestCase
     }
 
     /**
-     * @return array<array<string, mixed>>
+     * @return list<array{commandLine: string, expectedParams: list<string>, expectedExitCode: int}>
      */
     public static function provideCommandInput(): array
     {

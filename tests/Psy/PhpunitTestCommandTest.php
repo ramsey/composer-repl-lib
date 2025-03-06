@@ -6,6 +6,7 @@ namespace Ramsey\Test\Dev\Repl\Psy;
 
 use Exception;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Psy\Context;
 use Psy\Input\ShellInput;
@@ -72,9 +73,7 @@ class PhpunitTestCommandTest extends TestCase
         $command->getContext();
     }
 
-    /**
-     * @dataProvider provideInvalidAssertions
-     */
+    #[DataProvider('provideInvalidAssertions')]
     public function testCommandThrowsExceptionForInvalidAssertions(
         string $invalidAssertion,
         string $exceptionMessage,
@@ -93,7 +92,7 @@ class PhpunitTestCommandTest extends TestCase
     }
 
     /**
-     * @return array<array<string, string>>
+     * @return list<array{invalidAssertion: string, exceptionMessage: string}>
      */
     public static function provideInvalidAssertions(): array
     {

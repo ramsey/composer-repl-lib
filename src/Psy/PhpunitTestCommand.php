@@ -80,7 +80,7 @@ class PhpunitTestCommand extends ContextAwareCommand
             throw new InvalidArgumentException('The assertion provided is not valid');
         }
 
-        $functionName = $matches[1] ?? '';
+        $functionName = $matches[1];
 
         if (!method_exists($phpunitTestCase, $functionName)) {
             throw new InvalidArgumentException("{$functionName} is not a PHPUnit assertion method");
