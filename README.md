@@ -21,7 +21,8 @@ plugins, this exists to allow for extension. This library also allows for
 non-plugin use of the `repl` CLI tool, which you may use even if you do not wish
 to use the plugin functionality.
 
-> 💡 If you don't need to extend this for your own plugin needs, and you want the
+> [!TIP]
+> If you don't need to extend this for your own plugin needs, and you want the
 > functionality provided by the plugin, check out
 > [ramsey/composer-repl](https://github.com/ramsey/composer-repl) instead.
 
