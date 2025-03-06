@@ -27,16 +27,16 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout repository"
-        uses: "actions/checkout@v4.1.2"
+        uses: "actions/checkout@v4"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.4"
+        uses: "shivammathur/setup-php@v2"
         with:
           php-version: "latest"
           coverage: "none"
 
       - name: "Install dependencies (Composer)"
-        uses: "ramsey/composer-install@3.0.0"
+        uses: "ramsey/composer-install@v3"
 
       - name: "Check syntax (php-parallel-lint)"
         run: "composer dev:lint:syntax"
@@ -49,16 +49,16 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout repository"
-        uses: "actions/checkout@v4.1.2"
+        uses: "actions/checkout@v4"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.4"
+        uses: "shivammathur/setup-php@v2"
         with:
           php-version: "latest"
           coverage: "none"
 
       - name: "Install dependencies (Composer)"
-        uses: "ramsey/composer-install@3.0.0"
+        uses: "ramsey/composer-install@v3"
 
       - name: "Statically analyze code (PHPStan)"
         run: "composer dev:analyze:phpstan"
@@ -69,26 +69,22 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout repository"
-        uses: "actions/checkout@v4.1.2"
+        uses: "actions/checkout@v4"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.4"
+        uses: "shivammathur/setup-php@v2"
         with:
           php-version: "latest"
-          coverage: "pcov"
-          ini-values: "memory_limit=-1"
+          coverage: "xdebug"
 
       - name: "Install dependencies (Composer)"
-        uses: "ramsey/composer-install@3.0.0"
+        uses: "ramsey/composer-install@v3"
 
       - name: "Run unit tests (PHPUnit)"
         run: "composer dev:test:coverage:ci"
 
       - name: "Publish coverage report to Codecov"
-        uses: "codecov/codecov-action@v4.4.1"
-        with:
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
+        uses: "codecov/codecov-action@v5"
 
   unit-tests:
     name: "Unit tests"
@@ -102,6 +98,7 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3"
+          - "8.4"
         operating-system:
           - "ubuntu-latest"
           - "windows-latest"
@@ -118,16 +115,16 @@ jobs:
           git config --system core.eol lf
 
       - name: "Checkout repository"
-        uses: "actions/checkout@v4.1.2"
+        uses: "actions/checkout@v4"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.4"
+        uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "none"
 
       - name: "Install dependencies (Composer)"
-        uses: "ramsey/composer-install@3.0.0"
+        uses: "ramsey/composer-install@v3"
         with:
           dependency-versions: "${{ matrix.dependencies }}"
 
