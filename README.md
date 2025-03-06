@@ -63,7 +63,7 @@ Open your terminal and type `./vendor/bin/repl`.
 You'll see something similar to this:
 
 ```
-Psy Shell v0.11.1 (PHP 8.1.1 — cli) by Justin Hileman
+Psy Shell v0.12.7 (PHP 8.4.4 — cli) by Justin Hileman
 ------------------------------------------------------------------------
 Welcome to the development console (REPL).
 To learn more about what you can do in PsySH, type `help`.
@@ -101,9 +101,9 @@ Test passed!
 
 >>> phpunit
 
-PHPUnit 9.5.11 by Sebastian Bergmann and contributors.
+PHPUnit 11.5.11 by Sebastian Bergmann and contributors.
 
-Runtime:       PHP 8.1.1
+Runtime:       PHP 8.4.4
 Configuration: /path/to/ramsey/conventional-commits/phpunit.xml.dist
 
 ...............................................................  63 / 221 ( 28%)
@@ -116,7 +116,8 @@ Time: 00:00.064, Memory: 12.00 MB
 OK (221 tests, 484 assertions)
 ```
 
-✨🐘 This implementation of PsySH has Super ElePHPant Powers. 🐘✨
+> [!IMPORTANT]
+> ✨🐘 This implementation of PsySH has Super ElePHPant Powers. 🐘✨
 
 ## Environment Bootstrapping
 
