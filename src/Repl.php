@@ -34,6 +34,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function getenv;
+use function method_exists;
 use function putenv;
 use function sprintf;
 
@@ -72,13 +73,26 @@ class Repl
     {
         $shell = new Shell($this->getConfig());
         $shell->setScopeVariables($this->getScopeVariables());
-        $shell->add(new PhpunitTestCommand());
-        $shell->add(new PhpunitRunCommand(
-            $this->repositoryRoot,
-            $this->processFactory,
-            $this->composer,
-        ));
-        $shell->add(new ElephpantCommand());
+
+        $phpunitTestCommand = new PhpunitTestCommand();
+        $phpunitTestCommand->setApplication($shell);
+
+        $phpunitRunCommand = new PhpunitRunCommand($this->repositoryRoot, $this->processFactory, $this->composer);
+        $phpunitRunCommand->setApplication($shell);
+
+        $elephpantCommand = new ElephpantCommand();
+        $elephpantCommand->setApplication($shell);
+
+        if (method_exists($shell, 'addCommand')) {
+            $shell->addCommand($phpunitTestCommand);
+            $shell->addCommand($phpunitRunCommand);
+            $shell->addCommand($elephpantCommand);
+        } else {
+            // Support earlier versions of Psysh that used `add()`.
+            $shell->add($phpunitTestCommand);
+            $shell->add($phpunitRunCommand);
+            $shell->add($elephpantCommand);
+        }
 
         // phpcs:disable SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
         $_ENV['COMPOSER_REPL'] = '1';

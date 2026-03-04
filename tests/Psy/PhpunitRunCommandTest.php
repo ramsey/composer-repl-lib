@@ -15,6 +15,7 @@ use Ramsey\Dev\Repl\Psy\PhpunitRunCommand;
 use Ramsey\Test\Dev\Repl\TestCase;
 use RuntimeException;
 use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -99,6 +100,11 @@ class PhpunitRunCommandTest extends TestCase
         $output->expects()->writeln('')->twice();
         $output->expects()->write('this is some output', false, OutputInterface::OUTPUT_RAW);
 
+        $shell = $this->mockery(Shell::class);
+        $shell->allows()->getHelperSet()->andReturn(new HelperSet());
+        $shell->allows()->getDefinition()->andReturn(new InputDefinition());
+        $shell->allows()->boot($input, $output);
+
         $process = $this->mockery(Process::class);
         $process->expects()->start();
         $process->shouldReceive('wait')->andReturnUsing(
@@ -116,6 +122,7 @@ class PhpunitRunCommandTest extends TestCase
             ->andReturn($process);
 
         $command = new PhpunitRunCommand('/path/to/repo', $processFactory, $this->composer);
+        $command->setApplication($shell);
 
         $this->assertSame($expectedExitCode, $command->run($input, $output));
     }

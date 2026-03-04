@@ -19,10 +19,8 @@ use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
 use function dirname;
 use function getenv;
-use function implode;
 use function phpversion;
 use function realpath;
-use function str_replace;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_OS_FAMILY;
@@ -69,35 +67,29 @@ class ReplTest extends TestCase
         $process = $processFactory->factory(['bin/repl'], dirname(__DIR__));
         $process->setTimeout(3);
         $process->setPty(true);
+        $process->setInput("N\n");
 
         try {
             $process->mustRun();
-        } catch (ProcessTimedOutException $exception) { // @phpstan-ignore-line
+        } catch (ProcessTimedOutException) {
         }
 
         $shellVersion = Shell::VERSION;
         $phpVersion = phpversion();
+        $output = $process->getOutput();
 
-        $lines = [
-            "\e[90mPsy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman\e[39m",
-            '------------------------------------------------------------------------',
-            "\e[32mWelcome to the development console (REPL) for ramsey/composer-repl-lib.\e[39m",
-            "\e[36mTo learn more about what you can do in PsySH, type `help`.\e[39m",
-            '------------------------------------------------------------------------',
-        ];
-
-        $expected = implode("\r\n", $lines);
-
-        // Remove the prompt string, so we don't have to worry about comparing
-        // with different versions of PsySH (some include the paste-bracketing
-        // escape characters).
-        $output = str_replace(
-            ["\r\n\e[?2004h\e[?2004h> ", "\r\n> "],
-            '',
-            $process->getOutput(),
+        $this->assertStringContainsString(
+            "Psy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman",
+            $output,
         );
-
-        $this->assertSame($expected, $output);
+        $this->assertStringContainsString(
+            'Welcome to the development console (REPL) for ramsey/composer-repl-lib.',
+            $output,
+        );
+        $this->assertStringContainsString(
+            'To learn more about what you can do in PsySH, type `help`.',
+            $output,
+        );
     }
 
     public function testReplRun(): void
@@ -115,23 +107,24 @@ class ReplTest extends TestCase
         $shellVersion = Shell::VERSION;
         $phpVersion = phpversion();
 
-        $lines = [
-            "<whisper>Psy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman</whisper>",
-            '------------------------------------------------------------------------',
-            "\e[32mWelcome to the development console (REPL) for ramsey/composer-repl-lib.\e[39m",
-            "\e[36mTo learn more about what you can do in PsySH, type `help`.\e[39m",
-            '------------------------------------------------------------------------',
-            '',
-        ];
-
-        $expected = implode("\n", $lines);
-
         $input = new StringInput('');
         $bufferedOutput = new BufferedOutput();
 
         $this->repl->run($input, $bufferedOutput);
+        $output = $bufferedOutput->fetch();
 
-        $this->assertSame($expected, $bufferedOutput->fetch());
+        $this->assertStringContainsString(
+            "<whisper>Psy Shell $shellVersion (PHP $phpVersion — cli) by Justin Hileman</whisper>",
+            $output,
+        );
+        $this->assertStringContainsString(
+            'Welcome to the development console (REPL) for ramsey/composer-repl-lib.',
+            $output,
+        );
+        $this->assertStringContainsString(
+            'To learn more about what you can do in PsySH, type `help`.',
+            $output,
+        );
     }
 
     /**

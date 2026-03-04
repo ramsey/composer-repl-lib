@@ -79,10 +79,15 @@ class PhpunitTestCommandTest extends TestCase
         string $exceptionMessage,
     ): void {
         $input = new ShellInput($invalidAssertion);
-
         $output = $this->mockery(OutputInterface::class);
 
+        $shell = $this->mockery(Shell::class);
+        $shell->allows()->getHelperSet()->andReturn(new HelperSet());
+        $shell->allows()->getDefinition()->andReturn(new InputDefinition());
+        $shell->allows()->boot($input, $output);
+
         $command = new PhpunitTestCommand();
+        $command->setApplication($shell);
         $command->setContext($this->context);
 
         $this->expectException(InvalidArgumentException::class);
@@ -124,6 +129,9 @@ class PhpunitTestCommandTest extends TestCase
     {
         $input = new ShellInput('assertSame(2, $bar)');
 
+        $output = $this->mockery(OutputInterface::class);
+        $output->expects()->writeln('<fg=cyan>Test passed!</>');
+
         $application = $this->mockery(Shell::class, [
             'getHelperSet' => $this->mockery(HelperSet::class),
             'getDefinition' => $this->mockery(InputDefinition::class, [
@@ -131,10 +139,8 @@ class PhpunitTestCommandTest extends TestCase
                 'getOptions' => [],
             ]),
         ]);
+        $application->allows()->boot($input, $output);
         $application->expects()->execute('$phpunit->assertSame(2, $bar)', true);
-
-        $output = $this->mockery(OutputInterface::class);
-        $output->expects()->writeln('<fg=cyan>Test passed!</>');
 
         $command = new PhpunitTestCommand();
         $command->setApplication($application);
@@ -147,6 +153,9 @@ class PhpunitTestCommandTest extends TestCase
     {
         $input = new ShellInput('assertIsArray($bar);');
 
+        $output = $this->mockery(OutputInterface::class);
+        $output->expects()->writeln('<error>Test failed: something bad happened</error>');
+
         $application = $this->mockery(Shell::class, [
             'getHelperSet' => $this->mockery(HelperSet::class),
             'getDefinition' => $this->mockery(InputDefinition::class, [
@@ -154,13 +163,11 @@ class PhpunitTestCommandTest extends TestCase
                 'getOptions' => [],
             ]),
         ]);
+        $application->allows()->boot($input, $output);
         $application
             ->expects()
             ->execute('$phpunit->assertIsArray($bar);', true)
             ->andThrow(new Exception('something bad happened'));
-
-        $output = $this->mockery(OutputInterface::class);
-        $output->expects()->writeln('<error>Test failed: something bad happened</error>');
 
         $command = new PhpunitTestCommand();
         $command->setApplication($application);
