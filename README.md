@@ -53,7 +53,7 @@ uphold this code.
 Install this package as a development dependency using
 [Composer](https://getcomposer.org).
 
-``` bash
+```bash
 composer require --dev ramsey/composer-repl-lib
 ```
 
@@ -64,7 +64,7 @@ Open your terminal and type `./vendor/bin/repl`.
 You'll see something similar to this:
 
 ```
-Psy Shell v0.12.7 (PHP 8.4.4 — cli) by Justin Hileman
+Psy Shell v0.12.20 (PHP 8.5.3 — cli) by Justin Hileman
 ------------------------------------------------------------------------
 Welcome to the development console (REPL).
 To learn more about what you can do in PsySH, type `help`.
@@ -74,47 +74,45 @@ To learn more about what you can do in PsySH, type `help`.
 
 While in the dev console, you can do cool things like this:
 
-``` php
->>> $hello = 'Hello, world'
-=> "Hello, world"
+```php
+> $hello = 'Hello, world'
+= "Hello, world"
 
->>> echo $hello
+> echo $hello
 Hello, world
 
->>> foreach ([1, 2, 3] as $x) echo $x . "\n"
+> foreach ([1, 2, 3] as $x) echo $x . "\n"
 1
 2
 3
 
->>> $date = new DateTimeImmutable();
-=> DateTimeImmutable @1598393282 {#6953
-     date: 2020-08-25 22:08:02.643076 UTC (+00:00),
-   }
+> $date = new DateTimeImmutable();
+= DateTimeImmutable @1772598406 {#359
+    date: 2026-03-04 04:26:46.679771 UTC (+00:00),
+  }
 
->>> $getDate = fn (DateTimeInterface $dt): DateTimeInterface => $dt;
-=> Closure(DateTimeInterface $dt): DateTimeInterface {#6964 …3}
+> $getDate = fn (DateTimeInterface $dt): DateTimeInterface => $dt;
+= Closure(DateTimeInterface $dt): DateTimeInterface {#381 …3}
 
->>> t assertInstanceOf(DateTimeInterface::class, $date);
+> t assertInstanceOf(DateTimeInterface::class, $date);
 Test passed!
 
->>> t assertSame($date, $getDate($date))
+> t assertSame($date, $getDate($date))
 Test passed!
 
->>> phpunit
+> phpunit
 
-PHPUnit 11.5.11 by Sebastian Bergmann and contributors.
+PHPUnit 13.0.5 by Sebastian Bergmann and contributors.
 
-Runtime:       PHP 8.4.4
-Configuration: /path/to/ramsey/conventional-commits/phpunit.xml.dist
+Runtime:       PHP 8.5.3
+Configuration: /path/to/ramsey/composer-repl-lib/phpunit.xml.dist
 
-...............................................................  63 / 221 ( 28%)
-............................................................... 126 / 221 ( 57%)
-............................................................... 189 / 221 ( 85%)
-................................                                221 / 221 (100%)
+..................................SS....                          40 / 40 (100%)
 
-Time: 00:00.064, Memory: 12.00 MB
+Time: 00:00.288, Memory: 48.00 MB
 
-OK (221 tests, 484 assertions)
+OK, but some tests were skipped!
+Tests: 40, Assertions: 105, Skipped: 2.
 ```
 
 > [!IMPORTANT]
@@ -130,7 +128,7 @@ REPL.
 You can do this by specifying any number of PHP scripts to include in
 `composer.json`, like this:
 
-``` json
+```json
 {
     "extra": {
         "ramsey/composer-repl": {
@@ -148,14 +146,14 @@ from within the REPL.
 
 For example, if `repl.php` contains:
 
-``` php
+```php
 <?php
 $foo = 'bar';
 ```
 
 And we use `composer.json` to load it with the REPL:
 
-``` json
+```json
 {
     "extra": {
         "ramsey/composer-repl": {
@@ -167,12 +165,12 @@ And we use `composer.json` to load it with the REPL:
 
 Then, when we're in the REPL, we'll see `$foo` defined:
 
-```
->>> ls
+```php
+> ls
 Variables: $env, $foo, $phpunit
 
->>> $foo
-=> "bar"
+> $foo
+= "bar"
 ```
 
 ## Contributing
