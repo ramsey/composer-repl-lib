@@ -89,6 +89,7 @@ class ReplCommand extends BaseCommand
      */
     private function requireComposerLocal(): Composer
     {
+        /* @phpstan-ignore function.alreadyNarrowedType */
         if (method_exists($this, 'requireComposer')) {
             /** @var Composer */
             return $this->requireComposer();

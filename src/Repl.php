@@ -83,6 +83,7 @@ class Repl
         $elephpantCommand = new ElephpantCommand();
         $elephpantCommand->setApplication($shell);
 
+        /* @phpstan-ignore function.alreadyNarrowedType */
         if (method_exists($shell, 'addCommand')) {
             $shell->addCommand($phpunitTestCommand);
             $shell->addCommand($phpunitRunCommand);

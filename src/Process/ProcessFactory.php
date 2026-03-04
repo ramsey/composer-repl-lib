@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace Ramsey\Dev\Repl\Process;
 
+use Symfony\Component\Process\Process as SymfonyProcess;
+
 /**
  * Factory to create a Process instance for running commands
  *
@@ -32,7 +34,7 @@ class ProcessFactory
     /**
      * @param string[] $command
      */
-    public function factory(array $command, ?string $cwd = null): Process
+    public function factory(array $command, ?string $cwd = null): SymfonyProcess
     {
         return new Process($command, $cwd);
     }

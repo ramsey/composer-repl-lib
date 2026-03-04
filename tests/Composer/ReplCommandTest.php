@@ -8,6 +8,7 @@ use Composer\Composer;
 use Composer\Config;
 use Composer\EventDispatcher\EventDispatcher;
 use Composer\Package\RootPackageInterface;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use Ramsey\Dev\Repl\Composer\ReplCommand;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Test\Dev\Repl\TestCase;
@@ -19,6 +20,7 @@ use function realpath;
 
 class ReplCommandTest extends TestCase
 {
+    #[DoesNotPerformAssertions]
     public function testRun(): void
     {
         $dispatcher = $this->mockery(EventDispatcher::class);
@@ -60,8 +62,6 @@ class ReplCommandTest extends TestCase
             false,
         );
 
-        $status = $command->run($input, $output);
-
-        $this->assertIsInt($status);
+        $command->run($input, $output);
     }
 }
