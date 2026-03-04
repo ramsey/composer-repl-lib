@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.4.0 - 2026-03-04
+
+### Added
+
+- Verify support for PHP 8.5.
+- Expand phpunit/phpunit version to include `^13.0`.
+- Expand symfony/console version to include `^8.0`.
+- Expand symfony/finder version to include `^8.0`.
+- Expand symfony/process version to include `^8.0`.
+
+### Changed
+
+- Bump minimum supported version of PsySH to `^0.12.19`.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.3.1 - 2025-03-05
 
 ### Added
