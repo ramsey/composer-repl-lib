@@ -6,8 +6,8 @@ namespace Ramsey\Test\Dev\Repl;
 
 use Composer\Factory;
 use Composer\IO\ConsoleIO;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase as PhpUnitTestCase;
-use Psy\Configuration;
 use Psy\Shell;
 use Ramsey\Dev\Repl\Process\ProcessFactory;
 use Ramsey\Dev\Repl\Repl;
@@ -134,14 +134,13 @@ class ReplTest extends TestCase
      * code using {@see NullOutput} so that the coverage reports see
      * {@see Repl} as fully covered.
      */
+    #[DoesNotPerformAssertions]
     public function testRunExecutesWithoutErrors(): void
     {
         $input = new StringInput('');
         $nullOutput = new NullOutput();
 
         $this->repl->run($input, $nullOutput);
-
-        $this->assertInstanceOf(Configuration::class, $this->repl->getConfig());
     }
 
     public function testStartUpMessageIsSetOnTheConfig(): void
